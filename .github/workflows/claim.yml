@@ -25,6 +25,16 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v4
 
+      - name: 📥 下载私库脚本
+        uses: actions/checkout@v4
+        with:
+          repository: ${{ github.repository_owner }}/freemchosting-auto-claim
+          token: ${{ secrets.PAT_TOKEN }}
+          path: private
+
+      - name: 📂 移动脚本到工作目录
+        run: mv -f private/claim.py claim.py
+        
       - name: Setup Python
         uses: actions/setup-python@v5
         with:
@@ -62,4 +72,4 @@ jobs:
           name: screenshots-${{ github.run_id }}
           path: screenshots/
           if-no-files-found: ignore
-          retention-days: 7
+          retention-days: 2
