@@ -7,8 +7,8 @@ on:
         description: '领取轮数'
         required: false
         default: '10'
-  #schedule:
-  #  - cron: '41 22 * * *'
+  schedule:
+    - cron: '41 10,22 * * *'
 
 permissions:
   contents: read
