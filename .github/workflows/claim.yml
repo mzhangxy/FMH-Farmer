@@ -12,6 +12,7 @@ on:
 
 permissions:
   contents: read
+  actions: write
 
 concurrency:
   group: claim-credits
@@ -72,4 +73,13 @@ jobs:
           name: screenshots-${{ github.run_id }}
           path: screenshots/
           if-no-files-found: ignore
-          retention-days: 2
+          retention-days: 1
+
+      - name: 🧹 清理旧的工作流运行记录
+        if: always()
+        uses: MajorScruffy/delete-old-workflow-runs@v0.3.0
+        env:
+          GITHUB_TOKEN: ${{ github.token }}
+        with:
+          repository: ${{ github.repository }}
+          older-than-seconds: 3600
